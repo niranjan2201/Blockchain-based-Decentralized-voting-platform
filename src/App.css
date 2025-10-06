@@ -5,8 +5,8 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
   min-height: 100vh;
 }
 
@@ -14,53 +14,110 @@ body {
   min-height: 100vh;
 }
 
-/* Login Component Styles */
+/* Header with Indian Government Theme */
+.gov-header {
+  background: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+  padding: 1rem 0;
+  border-bottom: 3px solid #000080;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.gov-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.ashoka-chakra {
+  width: 60px;
+  height: 60px;
+  border: 3px solid #000080;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  font-size: 2rem;
+  color: #000080;
+}
+
+.gov-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000080;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.gov-subtitle {
+  text-align: center;
+  color: #000080;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Login Component - Government Theme */
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem;
   text-align: center;
+  background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+}
+
+.login-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border: 2px solid #000080;
+  max-width: 500px;
+  width: 100%;
 }
 
 .welcome-message {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  color: #000080;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .login-subtitle {
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 3rem;
-  max-width: 600px;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 .login-button {
-  padding: 1rem 3rem;
-  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  background: linear-gradient(45deg, #4CAF50, #45a049);
+  background: linear-gradient(45deg, #000080, #0066CC);
   color: white;
   border: none;
-  border-radius: 50px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
   text-transform: uppercase;
   letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(0,0,128,0.3);
 }
 
 .login-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 20px rgba(0,0,128,0.4);
+  background: linear-gradient(45deg, #0066CC, #000080);
 }
 
-/* Connected Component Styles */
+/* Connected Component - Government Theme */
 .connected-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -69,36 +126,52 @@ body {
 }
 
 .connected-header {
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  border: 2px solid #000080;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.main-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
-  color: white;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  color: #000080;
+  margin-bottom: 0.5rem;
+}
+
+.main-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  font-style: italic;
 }
 
 .account-info {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 2px solid #FF9933;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .connected-account {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: white;
+  color: #333;
   text-align: center;
+  font-weight: 500;
 }
 
 .voting-section {
   background: rgba(255,255,255,0.95);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 2px solid #138808;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .vote-input-container {
@@ -111,62 +184,69 @@ body {
 }
 
 input[type=number] {
-  padding: 0.8rem 1.5rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 10px;
+  border: 2px solid #000080;
+  border-radius: 8px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
   min-width: 200px;
+  background: white;
 }
 
 input[type=number]:focus {
-  border-color: #4CAF50;
+  border-color: #FF9933;
+  box-shadow: 0 0 10px rgba(255,153,51,0.3);
 }
 
 .connected-button {
-  padding: 0.8rem 2rem;
+  padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  background: linear-gradient(45deg, #4CAF50, #45a049);
+  background: linear-gradient(45deg, #138808, #0F6B06);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(19,136,8,0.3);
 }
 
 .connected-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 6px 20px rgba(19,136,8,0.4);
 }
 
 .already-voted {
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  background: linear-gradient(45deg, #FF9933, #FF6600);
   color: white;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 10px;
   text-align: center;
   font-weight: 600;
   margin-bottom: 1rem;
+  font-size: 1.1rem;
 }
 
 .add-candidate-section {
   background: rgba(255,255,255,0.95);
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 2px solid #000080;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .section-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
+  color: #000080;
   margin-bottom: 1rem;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .candidate-input-container {
@@ -178,36 +258,39 @@ input[type=number]:focus {
 }
 
 input[type=text] {
-  padding: 0.8rem 1.5rem;
+  padding: 1rem 1.5rem;
   font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 10px;
+  border: 2px solid #000080;
+  border-radius: 8px;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
   min-width: 250px;
+  background: white;
 }
 
 input[type=text]:focus {
-  border-color: #667eea;
+  border-color: #FF9933;
+  box-shadow: 0 0 10px rgba(255,153,51,0.3);
 }
 
 .add-button {
-  padding: 0.8rem 2rem;
+  padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  background: linear-gradient(45deg, #667eea, #764ba2);
+  background: linear-gradient(45deg, #000080, #0066CC);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0,0,128,0.3);
 }
 
 .add-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 6px 20px rgba(0,0,128,0.4);
 }
 
 .candidates-table {
@@ -216,11 +299,12 @@ input[type=text]:focus {
   background: white;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border: 2px solid #000080;
 }
 
 .candidates-table th {
-  background: linear-gradient(45deg, #4CAF50, #45a049);
+  background: linear-gradient(45deg, #000080, #0066CC);
   color: white;
   padding: 1.5rem 1rem;
   text-align: center;
@@ -233,43 +317,62 @@ input[type=text]:focus {
 .candidates-table td {
   padding: 1.2rem 1rem;
   text-align: center;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #e0e0e0;
   font-size: 1rem;
 }
 
 .candidates-table tr:nth-child(even) {
-  background-color: #f8f9fa;
+  background-color: #f8f9ff;
 }
 
 .candidates-table tr:hover {
-  background-color: #e3f2fd;
+  background-color: #e6f3ff;
   transform: scale(1.01);
   transition: all 0.2s ease;
 }
 
 .vote-count {
   font-weight: 700;
-  color: #4CAF50;
-  font-size: 1.2rem;
+  color: #138808;
+  font-size: 1.3rem;
+  background: #e8f5e8;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
-/* Finished Component Styles */
+/* Finished Component - Government Theme */
 .finished-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem;
   text-align: center;
+  background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+}
+
+.finished-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 15px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border: 2px solid #000080;
+  max-width: 600px;
+  width: 100%;
 }
 
 .finished-header {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  color: #000080;
   margin-bottom: 1rem;
+}
+
+.national-emblem {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #FF9933;
 }
 
 /* Responsive Design */
@@ -282,7 +385,7 @@ input[type=text]:focus {
     font-size: 2rem;
   }
   
-  .connected-header {
+  .main-title {
     font-size: 1.8rem;
   }
   
@@ -304,4 +407,23 @@ input[type=text]:focus {
   .candidates-table td {
     padding: 0.8rem 0.5rem;
   }
+  
+  .gov-title {
+    font-size: 1.8rem;
+  }
+  
+  .ashoka-chakra {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Indian Government Official Colors */
+:root {
+  --saffron: #FF9933;
+  --white: #FFFFFF;
+  --green: #138808;
+  --navy: #000080;
+  --light-blue: #0066CC;
 }

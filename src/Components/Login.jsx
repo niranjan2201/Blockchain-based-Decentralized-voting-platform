@@ -3,14 +3,20 @@ import React from "react";
 const Login = (props) => {
     return (
         <div className="login-container">
-            <h1 className="welcome-message">🗳️ Decentralized Voting</h1>
-            <p className="login-subtitle">
-                Secure, transparent, and decentralized voting powered by blockchain technology. 
-                Connect your MetaMask wallet to participate in the democratic process.
-            </p>
-            <button className="login-button" onClick={props.connectWallet}>
-                🤝 Connect MetaMask
-            </button>
+            <div className="login-card">
+                <div className="gov-logo-container">
+                    <div className="ashoka-chakra">☸️</div>
+                </div>
+                <h1 className="welcome-message">Digital India Voting Portal</h1>
+                <p className="login-subtitle">
+                    🇮🇳 Government of India - Blockchain Based Secure Voting System<br/>
+                    Transparent, Secure, and Decentralized Democratic Process<br/>
+                    सत्यमेव जयते (Truth Alone Triumphs)
+                </p>
+                <button className="login-button" onClick={props.connectWallet}>
+                    🔒 Connect Digital Wallet
+                </button>
+            </div>
         </div>
     )
 }
