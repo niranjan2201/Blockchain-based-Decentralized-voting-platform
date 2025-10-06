@@ -10,6 +10,8 @@ contract Voting {
     Candidate[] public candidates;
     address owner;
     mapping(address => bool) public voters;
+    mapping(address => string) public verifiedAadhaar; // Maps wallet to Aadhaar hash
+    mapping(string => bool) public usedAadhaar; // Prevents duplicate Aadhaar usage
 
     uint256 public votingStart;
     uint256 public votingEnd;
@@ -31,11 +33,19 @@ constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
         _;
     }
 
-    function addCandidate(string memory _name) public onlyOwner {
+    function addCandidate(string memory _name) public {
         candidates.push(Candidate({
                 name: _name,
                 voteCount: 0
         }));
+    }
+
+    function verifyAadhaar(string memory _aadhaarHash) public {
+        require(bytes(verifiedAadhaar[msg.sender]).length == 0, "Aadhaar already verified for this wallet.");
+        require(!usedAadhaar[_aadhaarHash], "This Aadhaar is already registered.");
+        
+        verifiedAadhaar[msg.sender] = _aadhaarHash;
+        usedAadhaar[_aadhaarHash] = true;
     }
 
     function vote(uint256 _candidateIndex) public {
@@ -44,6 +54,10 @@ constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
 
         candidates[_candidateIndex].voteCount++;
         voters[msg.sender] = true;
+    }
+
+    function isAadhaarVerified(address _voter) public view returns (bool) {
+        return bytes(verifiedAadhaar[_voter]).length > 0;
     }
 
     function getAllVotesOfCandiates() public view returns (Candidate[] memory){

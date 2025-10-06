@@ -43,18 +43,8 @@ export const translations = {
     votes: "votes",
     
     // Advanced Voting Features
-    multipleElections: "Multiple Elections",
-    simultaneousElections: "Vote in multiple elections simultaneously",
-    lokSabha: "Lok Sabha",
-    vidhanSabha: "Vidhan Sabha",
-    municipal: "Municipal Corporation",
     nota: "NOTA (None of the Above)",
     notaDescription: "If you don't want to vote for any candidate, choose NOTA",
-    selectAtLeastOne: "Please select at least one candidate",
-    allVotesSubmitted: "All votes submitted successfully!",
-    votingSummary: "Voting Summary",
-    notSelected: "Not Selected",
-    submitAllVotes: "Submit All Votes",
     
 
     
@@ -85,7 +75,68 @@ export const translations = {
     postGraduate: "Post Graduate",
     doctorate: "Doctorate",
     experienceYears: "Experience (Years)",
-    partySymbol: "Party Symbol (Emoji)"
+    partySymbol: "Party Symbol (Emoji)",
+    
+    // Government Branding
+    governmentOfIndia: "Government of India",
+    electionCommission: "Election Commission of India",
+    
+    // Unified Authentication
+    digitalVotingAuth: "Digital Voting Authentication",
+    secureAuthRequired: "Secure authentication required to proceed",
+    continueWithAadhaar: "Continue with Aadhaar",
+    governmentVerified: "Government verified identity",
+    continueWithWallet: "Continue with Wallet",
+    quickAccess: "Quick access with MetaMask",
+    or: "or",
+    continue: "Continue",
+    verify: "Verify",
+    connectMetaMask: "Connect your MetaMask wallet to proceed",
+    connectWallet: "Connect Wallet",
+    
+    // Aadhaar Verification
+    aadhaarVerification: "Aadhaar Verification",
+    verifyIdentity: "Verify your identity to proceed with voting",
+    enterAadhaar: "Enter Aadhaar Number",
+    aadhaarNote: "Enter your 12-digit Aadhaar number",
+    invalidAadhaar: "Please enter a valid 12-digit Aadhaar number",
+    sendOtp: "Send OTP",
+    verifying: "Verifying...",
+    otpSent: "OTP sent to your registered mobile number",
+    otpSentTo: "OTP sent to Aadhaar number:",
+    demoOtp: "Demo OTP",
+    enterOtp: "Enter OTP",
+    invalidOtp: "Please enter a valid 6-digit OTP",
+    verifyOtp: "Verify OTP",
+    wrongOtp: "Invalid OTP. Please try again",
+    aadhaarVerified: "Aadhaar Verified Successfully!",
+    proceedToVote: "You can now proceed to vote",
+    back: "Back",
+    
+    // Vote Receipt
+    voteReceipt: "Vote Receipt",
+    officialReceipt: "Official Voting Receipt - Government of India",
+    voterDetails: "Voter Details",
+    name: "Name",
+    aadhaarNumber: "Aadhaar Number",
+    walletAddress: "Wallet Address",
+    voteDetails: "Vote Details",
+    candidateVoted: "Candidate Voted For",
+    voteTime: "Vote Time",
+    transactionHash: "Transaction Hash",
+    blockchainVerification: "Blockchain Verification",
+    blockNumber: "Block Number",
+    receiptId: "Receipt ID",
+    verificationQR: "Verification QR Code",
+    scanToVerify: "Scan this QR code to verify your vote on blockchain",
+    blockchainSecured: "Blockchain Secured",
+    digitallyVerified: "Digitally Verified",
+    tamperProof: "Tamper Proof",
+    governmentFooter: "Government of India - Election Commission",
+    satyamevaJayate: "सत्यमेव जयते - Truth Alone Triumphs",
+    downloadReceipt: "Download Receipt",
+    printReceipt: "Print Receipt",
+    voteSuccessfullyRecorded: "Vote Successfully Recorded on Blockchain"
   },
   
   hi: {
@@ -132,18 +183,8 @@ export const translations = {
     votes: "वोट",
     
     // Advanced Voting Features
-    multipleElections: "कई चुनाव",
-    simultaneousElections: "एक साथ कई चुनावों में मतदान करें",
-    lokSabha: "लोक सभा",
-    vidhanSabha: "विधान सभा",
-    municipal: "नगर निगम",
     nota: "नोटा (कोई नहीं)",
     notaDescription: "अगर आप किसी उम्मीदवार को वोट नहीं देना चाहते, तो नोटा चुनें",
-    selectAtLeastOne: "कृपया कम से कम एक उम्मीदवार चुनें",
-    allVotesSubmitted: "सभी वोट सफलतापूर्वक जमा किए गए!",
-    votingSummary: "मतदान सारांश",
-    notSelected: "चयनित नहीं",
-    submitAllVotes: "सभी वोट जमा करें",
     
 
     
@@ -174,7 +215,68 @@ export const translations = {
     postGraduate: "स्नातकोत्तर",
     doctorate: "डॉक्टरेट",
     experienceYears: "अनुभव (वर्ष)",
-    partySymbol: "पार्टी चिह्न (इमोजी)"
+    partySymbol: "पार्टी चिह्न (इमोजी)",
+    
+    // Government Branding
+    governmentOfIndia: "भारत सरकार",
+    electionCommission: "भारतीय निर्वाचन आयोग",
+    
+    // Unified Authentication
+    digitalVotingAuth: "डिजिटल मतदान प्रमाणीकरण",
+    secureAuthRequired: "आगे बढ़ने के लिए सुरक्षित प्रमाणीकरण आवश्यक",
+    continueWithAadhaar: "आधार के साथ जारी रखें",
+    governmentVerified: "सरकारी सत्यापित पहचान",
+    continueWithWallet: "वॉलेट के साथ जारी रखें",
+    quickAccess: "MetaMask के साथ त्वरित पहुंच",
+    or: "या",
+    continue: "जारी रखें",
+    verify: "सत्यापित करें",
+    connectMetaMask: "आगे बढ़ने के लिए अपना MetaMask वॉलेट कनेक्ट करें",
+    connectWallet: "वॉलेट कनेक्ट करें",
+    
+    // Aadhaar Verification
+    aadhaarVerification: "आधार सत्यापन",
+    verifyIdentity: "मतदान के लिए अपनी पहचान सत्यापित करें",
+    enterAadhaar: "आधार नंबर दर्ज करें",
+    aadhaarNote: "अपना 12 अंकों का आधार नंबर दर्ज करें",
+    invalidAadhaar: "कृपया वैध 12 अंकों का आधार नंबर दर्ज करें",
+    sendOtp: "OTP भेजें",
+    verifying: "सत्यापित कर रहे हैं...",
+    otpSent: "आपके पंजीकृत मोबाइल नंबर पर OTP भेजा गया",
+    otpSentTo: "आधार नंबर पर OTP भेजा गया:",
+    demoOtp: "डेमो OTP",
+    enterOtp: "OTP दर्ज करें",
+    invalidOtp: "कृपया वैध 6 अंकों का OTP दर्ज करें",
+    verifyOtp: "OTP सत्यापित करें",
+    wrongOtp: "गलत OTP. कृपया पुन: प्रयास करें",
+    aadhaarVerified: "आधार सफलतापूर्वक सत्यापित!",
+    proceedToVote: "आप अब मतदान कर सकते हैं",
+    back: "वापस",
+    
+    // Vote Receipt
+    voteReceipt: "मतदान रसीद",
+    officialReceipt: "आधिकारिक मतदान रसीद - भारत सरकार",
+    voterDetails: "मतदाता विवरण",
+    name: "नाम",
+    aadhaarNumber: "आधार नंबर",
+    walletAddress: "वॉलेट पता",
+    voteDetails: "मत विवरण",
+    candidateVoted: "जिसे मत दिया",
+    voteTime: "मतदान समय",
+    transactionHash: "लेनदेन हैश",
+    blockchainVerification: "ब्लॉकचेन सत्यापन",
+    blockNumber: "ब्लॉक नंबर",
+    receiptId: "रसीद आईडी",
+    verificationQR: "सत्यापन QR कोड",
+    scanToVerify: "ब्लॉकचेन पर अपने मत की पुष्टि के लिए इस QR कोड को स्कैन करें",
+    blockchainSecured: "ब्लॉकचेन सुरक्षित",
+    digitallyVerified: "डिजिटल रूप से सत्यापित",
+    tamperProof: "छेड़छाड़ प्रूफ",
+    governmentFooter: "भारत सरकार - चुनाव आयोग",
+    satyamevaJayate: "सत्यमेव जयते",
+    downloadReceipt: "रसीद डाउनलोड करें",
+    printReceipt: "रसीद प्रिंट करें",
+    voteSuccessfullyRecorded: "मत सफलतापूर्वक ब्लॉकचेन पर दर्ज"
   },
   
   mr: {
@@ -221,18 +323,8 @@ export const translations = {
     votes: "मते",
     
     // Advanced Voting Features
-    multipleElections: "अनेक निवडणूक",
-    simultaneousElections: "एकाच वेळी अनेक निवडणूकांमध्ये मतदान करा",
-    lokSabha: "लोकसभा",
-    vidhanSabha: "विधानसभा",
-    municipal: "महानगरपालिका",
     nota: "नोटा (कोणी नाही)",
     notaDescription: "जर तुम्ही कोणत्याही उमेदवाराला मत देू इच्छित नाही, तर नोटा निवडा",
-    selectAtLeastOne: "कृपया किमान एक उमेदवार निवडा",
-    allVotesSubmitted: "सर्व मते यशस्वीरित्या सबमिट केली!",
-    votingSummary: "मतदान सारांश",
-    notSelected: "निवडले नाही",
-    submitAllVotes: "सर्व मते सबमिट करा",
     
 
     
@@ -263,7 +355,51 @@ export const translations = {
     postGraduate: "पदव्युत्तर",
     doctorate: "डॉक्टरेट",
     experienceYears: "अनुभव (वर्षे)",
-    partySymbol: "पक्ष चिन्ह (इमोजी)"
+    partySymbol: "पक्ष चिन्ह (इमोजी)",
+    
+    // Aadhaar Verification
+    aadhaarVerification: "आधार सत्यापन",
+    verifyIdentity: "मतदानासाठी तुमची ओळख सत्यापित करा",
+    enterAadhaar: "आधार क्रमांक टाका",
+    aadhaarNote: "तुमचा 12 अंकी आधार क्रमांक टाका",
+    invalidAadhaar: "कृपया वैध 12 अंकी आधार क्रमांक टाका",
+    sendOtp: "OTP पाठवा",
+    verifying: "सत्यापित करत आहे...",
+    otpSent: "तुमच्या नोंदणीकृत मोबाइल नंबरवर OTP पाठवला",
+    otpSentTo: "आधार क्रमांकावर OTP पाठवला:",
+    demoOtp: "डेमो OTP",
+    enterOtp: "OTP टाका",
+    invalidOtp: "कृपया वैध 6 अंकी OTP टाका",
+    verifyOtp: "OTP सत्यापित करा",
+    wrongOtp: "चुकीचा OTP. कृपया पुन्हा प्रयत्न करा",
+    aadhaarVerified: "आधार यशस्वीरित्या सत्यापित!",
+    proceedToVote: "तुम्ही आता मतदान करू शकता",
+    back: "मागे",
+    
+    // Vote Receipt
+    voteReceipt: "मतदान पावती",
+    officialReceipt: "अधिकृत मतदान पावती - भारत सरकार",
+    voterDetails: "मतदार तपशील",
+    name: "नाव",
+    aadhaarNumber: "आधार क्रमांक",
+    walletAddress: "वॉलेट पत्ता",
+    voteDetails: "मत तपशील",
+    candidateVoted: "ज्याला मत दिले",
+    voteTime: "मतदानाची वेळ",
+    transactionHash: "व्यवहार हॅश",
+    blockchainVerification: "ब्लॉकचेन सत्यापन",
+    blockNumber: "ब्लॉक क्रमांक",
+    receiptId: "पावती आयडी",
+    verificationQR: "सत्यापन QR कोड",
+    scanToVerify: "ब्लॉकचेनवर तुमच्या मताची पुष्टी करण्यासाठी हा QR कोड स्कॅन करा",
+    blockchainSecured: "ब्लॉकचेन सुरक्षित",
+    digitallyVerified: "डिजिटल सत्यापित",
+    tamperProof: "छेडछाड प्रूफ",
+    governmentFooter: "भारत सरकार - निवडणूक आयोग",
+    satyamevaJayate: "सत्यमेव जयते",
+    downloadReceipt: "पावती डाउनलोड करा",
+    printReceipt: "पावती प्रिंट करा",
+    voteSuccessfullyRecorded: "मत यशस्वीरित्या ब्लॉकचेनवर नोंदवले"
   }
 };
 

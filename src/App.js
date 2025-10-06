@@ -6,8 +6,10 @@ import Finished from './Components/Finished';
 import Connected from './Components/Connected';
 import Dashboard from './Components/Dashboard';
 import AuditTrail from './Components/AuditTrail';
-import MultipleElections from './Components/MultipleElections';
 import CandidateProfiles from './Components/CandidateProfiles';
+import AadhaarVerification from './Components/AadhaarVerification';
+import UnifiedAuth from './Components/UnifiedAuth';
+import VoteReceipt from './Components/VoteReceipt';
 import ThemeLanguageControls from './Components/ThemeLanguageControls';
 import { getTranslation } from './utils/translations';
 import './App.css';
@@ -31,6 +33,11 @@ function App() {
   const [totalVoters] = useState(1000); // Mock total registered voters
   const [theme, setTheme] = useState('light');
   const [language, setLanguage] = useState('en');
+  const [isAadhaarVerified, setIsAadhaarVerified] = useState(false);
+  const [voterData, setVoterData] = useState(null);
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [voteReceiptData, setVoteReceiptData] = useState(null);
+  const [authMethod, setAuthMethod] = useState(null); // 'aadhaar', 'wallet', null
 
 
   useEffect( () => {
@@ -54,6 +61,11 @@ function App() {
 
 
   async function vote() {
+      if (authMethod === 'aadhaar' && !isAadhaarVerified) {
+        alert('Please complete Aadhaar verification first');
+        return;
+      }
+      
       if (!number || number === '') {
         alert('Please enter a candidate index');
         return;
@@ -71,15 +83,11 @@ function App() {
         }
 
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const network = await provider.getNetwork();
-        console.log('Connected to network:', network);
-        
         const signer = provider.getSigner();
         const contractInstance = new ethers.Contract(
           contractAddress, contractAbi, signer
         );
 
-        // Check if voting is still active
         const votingStatus = await contractInstance.getVotingStatus();
         if (!votingStatus) {
           alert('Voting period has ended');
@@ -89,25 +97,18 @@ function App() {
         const tx = await contractInstance.vote(parseInt(number), {
           gasLimit: 300000
         });
-        console.log('Transaction sent:', tx.hash);
         
         const receipt = await tx.wait();
-        console.log('Transaction confirmed:', receipt);
         alert('Vote cast successfully!');
         
+        generateVoteReceipt(parseInt(number), tx.hash, receipt.blockNumber);
         canVote();
         getCandidates();
         setNumber('');
       } catch (error) {
         console.error('Voting error:', error);
-        if (error.code === 4001) {
-          alert('Transaction rejected by user');
-        } else if (error.code === -32603) {
-          alert('Network error. Please check your connection and try again.');
-        } else if (error.message.includes('already voted')) {
+        if (error.message.includes('already voted')) {
           alert('You have already voted!');
-        } else if (error.message.includes('Failed to fetch')) {
-          alert('Network connection failed. Please check MetaMask network settings.');
         } else {
           alert('Error casting vote: ' + (error.reason || error.message));
         }
@@ -129,6 +130,7 @@ function App() {
 
   async function getCandidates() {
       try {
+        if (!window.ethereum) return;
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
@@ -146,6 +148,7 @@ function App() {
         setCandidates(formattedCandidates);
       } catch (error) {
         console.error('Error getting candidates:', error);
+        setCandidates([]);
       }
   }
 
@@ -230,6 +233,32 @@ function App() {
   async function handleCandidateSymbolChange(e) {
     setCandidateSymbol(e.target.value);
   }
+
+  const handleUnifiedAuthSuccess = (voterData, isAadhaarVerified) => {
+    if (voterData) {
+      setVoterData(voterData);
+      setIsAadhaarVerified(isAadhaarVerified);
+      setAuthMethod('aadhaar');
+    } else {
+      setAuthMethod('wallet');
+    }
+  };
+
+  const generateVoteReceipt = (candidateIndex, transactionHash, blockNumber) => {
+    const candidate = candidates.find(c => c.index === candidateIndex);
+    const receiptData = {
+      voterName: voterData?.name || 'Verified Voter',
+      aadhaarNumber: voterData?.aadhaarNumber || 'XXXX XXXX XXXX',
+      walletAddress: account,
+      candidateName: candidate?.name || 'Unknown',
+      timestamp: new Date().toISOString(),
+      transactionHash: transactionHash,
+      blockNumber: blockNumber,
+      receiptId: `VR${Date.now().toString().slice(-8)}`
+    };
+    setVoteReceiptData(receiptData);
+    setShowReceipt(true);
+  };
 
   async function addCandidate() {
     if (!candidateName || candidateName.trim() === '') {
@@ -331,14 +360,6 @@ function App() {
             language={language}
           />
         );
-      case 'multiple':
-        return (
-          <MultipleElections 
-            language={language}
-            account={account}
-            voteFunction={vote}
-          />
-        );
       case 'profiles':
         return (
           <CandidateProfiles 
@@ -382,12 +403,6 @@ function App() {
               {getTranslation(language, 'votingPortal')}
             </button>
             <button 
-              className={`nav-tab ${activeTab === 'multiple' ? 'active' : ''}`}
-              onClick={() => setActiveTab('multiple')}
-            >
-              {getTranslation(language, 'multipleElections')}
-            </button>
-            <button 
               className={`nav-tab ${activeTab === 'profiles' ? 'active' : ''}`}
               onClick={() => setActiveTab('profiles')}
             >
@@ -409,7 +424,12 @@ function App() {
           {renderTabContent()}
         </div>
       ) : (
-        <Login connectWallet={connectToMetamask} language={language} />
+        <UnifiedAuth 
+          language={language}
+          theme={theme}
+          onAuthSuccess={handleUnifiedAuthSuccess}
+          connectWallet={connectToMetamask}
+        />
       )) : (
         <Finished language={language} />
       )}
