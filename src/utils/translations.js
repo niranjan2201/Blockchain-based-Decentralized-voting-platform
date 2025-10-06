@@ -40,7 +40,52 @@ export const translations = {
     hindi: "हिंदी",
     marathi: "मराठी",
     seconds: "seconds",
-    votes: "votes"
+    votes: "votes",
+    
+    // Advanced Voting Features
+    multipleElections: "Multiple Elections",
+    simultaneousElections: "Vote in multiple elections simultaneously",
+    lokSabha: "Lok Sabha",
+    vidhanSabha: "Vidhan Sabha",
+    municipal: "Municipal Corporation",
+    nota: "NOTA (None of the Above)",
+    notaDescription: "If you don't want to vote for any candidate, choose NOTA",
+    selectAtLeastOne: "Please select at least one candidate",
+    allVotesSubmitted: "All votes submitted successfully!",
+    votingSummary: "Voting Summary",
+    notSelected: "Not Selected",
+    submitAllVotes: "Submit All Votes",
+    
+
+    
+    // Candidate Profiles
+    candidateProfiles: "Candidate Profiles",
+    detailedCandidateInfo: "Detailed information about all candidates",
+    age: "Age",
+    education: "Education",
+    experience: "Experience",
+    years: "years",
+    assets: "Assets",
+    criminalRecord: "Criminal Record",
+    achievements: "Achievements",
+    manifesto: "Manifesto",
+    viewProfile: "View Profile",
+    vote: "Vote",
+    confirmVote: "Confirm your vote for",
+    voteForCandidate: "Vote for",
+    notaOption: "None of the Above option for protest vote",
+    
+    // Candidate Form Fields
+    partyName: "Party Name",
+    candidateAge: "Age (25-80)",
+    selectEducation: "Select Education",
+    class10: "10th Class",
+    class12: "12th Class",
+    graduate: "Graduate",
+    postGraduate: "Post Graduate",
+    doctorate: "Doctorate",
+    experienceYears: "Experience (Years)",
+    partySymbol: "Party Symbol (Emoji)"
   },
   
   hi: {
@@ -84,7 +129,52 @@ export const translations = {
     hindi: "हिंदी",
     marathi: "मराठी",
     seconds: "सेकंड",
-    votes: "वोट"
+    votes: "वोट",
+    
+    // Advanced Voting Features
+    multipleElections: "कई चुनाव",
+    simultaneousElections: "एक साथ कई चुनावों में मतदान करें",
+    lokSabha: "लोक सभा",
+    vidhanSabha: "विधान सभा",
+    municipal: "नगर निगम",
+    nota: "नोटा (कोई नहीं)",
+    notaDescription: "अगर आप किसी उम्मीदवार को वोट नहीं देना चाहते, तो नोटा चुनें",
+    selectAtLeastOne: "कृपया कम से कम एक उम्मीदवार चुनें",
+    allVotesSubmitted: "सभी वोट सफलतापूर्वक जमा किए गए!",
+    votingSummary: "मतदान सारांश",
+    notSelected: "चयनित नहीं",
+    submitAllVotes: "सभी वोट जमा करें",
+    
+
+    
+    // Candidate Profiles
+    candidateProfiles: "उम्मीदवार प्रोफाइल",
+    detailedCandidateInfo: "सभी उम्मीदवारों की विस्तृत जानकारी",
+    age: "उम्र",
+    education: "शिक्षा",
+    experience: "अनुभव",
+    years: "वर्ष",
+    assets: "संपत्ति",
+    criminalRecord: "आपराधिक रिकॉर्ड",
+    achievements: "उपलब्धियाँ",
+    manifesto: "घोषणापत्र",
+    viewProfile: "प्रोफाइल देखें",
+    vote: "वोट",
+    confirmVote: "की पुष्टि करें",
+    voteForCandidate: "को वोट दें",
+    notaOption: "विरोध मत के लिए कोई नहीं विकल्प",
+    
+    // Candidate Form Fields
+    partyName: "पार्टी का नाम",
+    candidateAge: "उम्र (25-80)",
+    selectEducation: "शिक्षा चुनें",
+    class10: "दसवीं कक्षा",
+    class12: "बारहवीं कक्षा",
+    graduate: "स्नातक",
+    postGraduate: "स्नातकोत्तर",
+    doctorate: "डॉक्टरेट",
+    experienceYears: "अनुभव (वर्ष)",
+    partySymbol: "पार्टी चिह्न (इमोजी)"
   },
   
   mr: {
@@ -128,7 +218,52 @@ export const translations = {
     hindi: "हिंदी",
     marathi: "मराठी",
     seconds: "सेकंद",
-    votes: "मते"
+    votes: "मते",
+    
+    // Advanced Voting Features
+    multipleElections: "अनेक निवडणूक",
+    simultaneousElections: "एकाच वेळी अनेक निवडणूकांमध्ये मतदान करा",
+    lokSabha: "लोकसभा",
+    vidhanSabha: "विधानसभा",
+    municipal: "महानगरपालिका",
+    nota: "नोटा (कोणी नाही)",
+    notaDescription: "जर तुम्ही कोणत्याही उमेदवाराला मत देू इच्छित नाही, तर नोटा निवडा",
+    selectAtLeastOne: "कृपया किमान एक उमेदवार निवडा",
+    allVotesSubmitted: "सर्व मते यशस्वीरित्या सबमिट केली!",
+    votingSummary: "मतदान सारांश",
+    notSelected: "निवडले नाही",
+    submitAllVotes: "सर्व मते सबमिट करा",
+    
+
+    
+    // Candidate Profiles
+    candidateProfiles: "उमेदवार प्रोफाइल",
+    detailedCandidateInfo: "सर्व उमेदवारांची विस्तृत माहिती",
+    age: "वय",
+    education: "शिक्षण",
+    experience: "अनुभव",
+    years: "वर्षे",
+    assets: "मालमत्ता",
+    criminalRecord: "गुन्हेगारी रेकॉर्ड",
+    achievements: "यश",
+    manifesto: "जाहीरनामा",
+    viewProfile: "प्रोफाइल पहा",
+    vote: "मत",
+    confirmVote: "ची पुष्टी करा",
+    voteForCandidate: "ला मत द्या",
+    notaOption: "विरोध मतासाठी कोणी नाही पर्याय",
+    
+    // Candidate Form Fields
+    partyName: "पक्षाचे नाव",
+    candidateAge: "वय (25-80)",
+    selectEducation: "शिक्षण निवडा",
+    class10: "दहावी वर्ग",
+    class12: "बारावी वर्ग",
+    graduate: "पदवीधर",
+    postGraduate: "पदव्युत्तर",
+    doctorate: "डॉक्टरेट",
+    experienceYears: "अनुभव (वर्षे)",
+    partySymbol: "पक्ष चिन्ह (इमोजी)"
   }
 };
 

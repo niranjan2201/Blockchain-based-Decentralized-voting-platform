@@ -49,13 +49,65 @@ const Connected = (props) => {
                 <p style={{textAlign: 'center', marginBottom: '1rem', color: 'var(--text-muted, #666)'}}>
                     {getTranslation(props.language, 'officialOnly')}
                 </p>
-                <div className="candidate-input-container">
-                    <input 
-                        type="text" 
-                        placeholder={getTranslation(props.language, 'candidateName')} 
-                        value={props.candidateName} 
-                        onChange={props.handleCandidateNameChange}
-                    />
+                <div className="candidate-form">
+                    <div className="form-row">
+                        <input 
+                            type="text" 
+                            placeholder={getTranslation(props.language, 'candidateName')} 
+                            value={props.candidateName} 
+                            onChange={props.handleCandidateNameChange}
+                            className="form-input"
+                        />
+                        <input 
+                            type="text" 
+                            placeholder={getTranslation(props.language, 'partyName')} 
+                            value={props.candidateParty || ''} 
+                            onChange={props.handleCandidatePartyChange}
+                            className="form-input"
+                        />
+                    </div>
+                    <div className="form-row">
+                        <input 
+                            type="number" 
+                            placeholder={getTranslation(props.language, 'candidateAge')} 
+                            value={props.candidateAge || ''} 
+                            onChange={props.handleCandidateAgeChange}
+                            className="form-input"
+                            min="25"
+                            max="80"
+                        />
+                        <select 
+                            value={props.candidateEducation || ''} 
+                            onChange={props.handleCandidateEducationChange}
+                            className="form-input"
+                        >
+                            <option value="">{getTranslation(props.language, 'selectEducation')}</option>
+                            <option value="दसवीं">{getTranslation(props.language, 'class10')}</option>
+                            <option value="बारहवीं">{getTranslation(props.language, 'class12')}</option>
+                            <option value="स्नातक">{getTranslation(props.language, 'graduate')}</option>
+                            <option value="स्नातकोत्तर">{getTranslation(props.language, 'postGraduate')}</option>
+                            <option value="डॉक्टरेट">{getTranslation(props.language, 'doctorate')}</option>
+                        </select>
+                    </div>
+                    <div className="form-row">
+                        <input 
+                            type="number" 
+                            placeholder={getTranslation(props.language, 'experienceYears')} 
+                            value={props.candidateExperience || ''} 
+                            onChange={props.handleCandidateExperienceChange}
+                            className="form-input"
+                            min="0"
+                            max="50"
+                        />
+                        <input 
+                            type="text" 
+                            placeholder={getTranslation(props.language, 'partySymbol')} 
+                            value={props.candidateSymbol || ''} 
+                            onChange={props.handleCandidateSymbolChange}
+                            className="form-input"
+                            maxLength="2"
+                        />
+                    </div>
                     <button className="add-button" onClick={props.addCandidateFunction}>
                         {getTranslation(props.language, 'registerBtn')}
                     </button>
