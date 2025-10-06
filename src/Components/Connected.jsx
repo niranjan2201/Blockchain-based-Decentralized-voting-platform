@@ -1,4 +1,5 @@
 import React from "react";
+import { getTranslation } from '../utils/translations';
 
 const Connected = (props) => {
     return (
@@ -7,37 +8,36 @@ const Connected = (props) => {
                 <div className="gov-logo-container">
                     <div className="ashoka-chakra">☸️</div>
                 </div>
-                <h1 className="main-title">🇮🇳 Digital India Voting Portal</h1>
-                <p className="main-subtitle">Government of India - Blockchain Based Secure Voting System</p>
+                <h1 className="main-title">{getTranslation(props.language, 'mainTitle')}</h1>
+                <p className="main-subtitle">{getTranslation(props.language, 'mainSubtitle')}</p>
             </div>
             
             <div className="account-info">
-                <p className="connected-account">📱 Registered Voter ID: {props.account}</p>
-                <p className="connected-account">⏰ Voting Time Remaining: {props.remainingTime} seconds</p>
-                <p className="connected-account">📊 Election Status: Active</p>
+                <p className="connected-account">{getTranslation(props.language, 'registeredVoter')} {props.account}</p>
+                <p className="connected-account">{getTranslation(props.language, 'votingTimeRemaining')} {props.remainingTime} {getTranslation(props.language, 'seconds')}</p>
+                <p className="connected-account">{getTranslation(props.language, 'electionStatus')}</p>
             </div>
 
             <div className="voting-section">
                 { props.showButton ? (
                     <div className="already-voted">
-                        ✅ Your vote has been successfully recorded on the blockchain!<br/>
-                        Thank you for participating in India's democratic process.
+                        {getTranslation(props.language, 'alreadyVoted')}
                     </div>
                 ) : (
                     <div>
-                        <h3 className="section-title">🗳️ Cast Your Vote</h3>
-                        <p style={{textAlign: 'center', marginBottom: '1rem', color: '#666'}}>
-                            Select candidate index from the table below and cast your vote
+                        <h3 className="section-title">{getTranslation(props.language, 'castVote')}</h3>
+                        <p style={{textAlign: 'center', marginBottom: '1rem', color: 'var(--text-muted, #666)'}}>
+                            {getTranslation(props.language, 'voteInstruction')}
                         </p>
                         <div className="vote-input-container">
                             <input 
                                 type="number" 
-                                placeholder="Enter Candidate Index (0, 1, 2...)" 
+                                placeholder={getTranslation(props.language, 'candidateIndex')} 
                                 value={props.number} 
                                 onChange={props.handleNumberChange}
                             />
                             <button className="connected-button" onClick={props.voteFunction}>
-                                🗳️ Submit Vote
+                                {getTranslation(props.language, 'submitVote')}
                             </button>
                         </div>
                     </div>
@@ -45,31 +45,31 @@ const Connected = (props) => {
             </div>
             
             <div className="add-candidate-section">
-                <h3 className="section-title">📝 Register New Candidate</h3>
-                <p style={{textAlign: 'center', marginBottom: '1rem', color: '#666'}}>
-                    Election Commission Officials Only
+                <h3 className="section-title">{getTranslation(props.language, 'registerCandidate')}</h3>
+                <p style={{textAlign: 'center', marginBottom: '1rem', color: 'var(--text-muted, #666)'}}>
+                    {getTranslation(props.language, 'officialOnly')}
                 </p>
                 <div className="candidate-input-container">
                     <input 
                         type="text" 
-                        placeholder="Enter Candidate Full Name" 
+                        placeholder={getTranslation(props.language, 'candidateName')} 
                         value={props.candidateName} 
                         onChange={props.handleCandidateNameChange}
                     />
                     <button className="add-button" onClick={props.addCandidateFunction}>
-                        ➕ Register Candidate
+                        {getTranslation(props.language, 'registerBtn')}
                     </button>
                 </div>
             </div>
             
             <div className="voting-section">
-                <h3 className="section-title">📋 Official Candidate List</h3>
+                <h3 className="section-title">{getTranslation(props.language, 'candidateList')}</h3>
                 <table className="candidates-table">
                     <thead>
                         <tr>
-                            <th>Candidate Index</th>
-                            <th>Candidate Name</th>
-                            <th>Total Votes</th>
+                            <th>{getTranslation(props.language, 'candidateIndexCol')}</th>
+                            <th>{getTranslation(props.language, 'candidateNameCol')}</th>
+                            <th>{getTranslation(props.language, 'totalVotesCol')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,7 +77,7 @@ const Connected = (props) => {
                             <tr key={index}>
                                 <td><strong>{candidate.index}</strong></td>
                                 <td>💼 {candidate.name}</td>
-                                <td><span className="vote-count">{candidate.voteCount}</span></td>
+                                <td><span className="vote-count">{candidate.voteCount} {getTranslation(props.language, 'votes')}</span></td>
                             </tr>
                         ))}
                     </tbody>

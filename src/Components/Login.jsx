@@ -1,4 +1,5 @@
 import React from "react";
+import { getTranslation } from '../utils/translations';
 
 const Login = (props) => {
     return (
@@ -7,14 +8,12 @@ const Login = (props) => {
                 <div className="gov-logo-container">
                     <div className="ashoka-chakra">☸️</div>
                 </div>
-                <h1 className="welcome-message">Digital India Voting Portal</h1>
+                <h1 className="welcome-message">{getTranslation(props.language, 'welcomeTitle')}</h1>
                 <p className="login-subtitle">
-                    🇮🇳 Government of India - Blockchain Based Secure Voting System<br/>
-                    Transparent, Secure, and Decentralized Democratic Process<br/>
-                    सत्यमेव जयते (Truth Alone Triumphs)
+                    {getTranslation(props.language, 'welcomeSubtitle')}
                 </p>
                 <button className="login-button" onClick={props.connectWallet}>
-                    🔒 Connect Digital Wallet
+                    {getTranslation(props.language, 'connectWallet')}
                 </button>
             </div>
         </div>

@@ -4,6 +4,10 @@ import {contractAbi, contractAddress} from './Constant/constant';
 import Login from './Components/Login';
 import Finished from './Components/Finished';
 import Connected from './Components/Connected';
+import Dashboard from './Components/Dashboard';
+import AuditTrail from './Components/AuditTrail';
+import ThemeLanguageControls from './Components/ThemeLanguageControls';
+import { getTranslation } from './utils/translations';
 import './App.css';
 
 function App() {
@@ -16,6 +20,10 @@ function App() {
   const [number, setNumber] = useState('');
   const [CanVote, setCanVote] = useState(true);
   const [candidateName, setCandidateName] = useState('');
+  const [activeTab, setActiveTab] = useState('voting');
+  const [totalVoters] = useState(1000); // Mock total registered voters
+  const [theme, setTheme] = useState('light');
+  const [language, setLanguage] = useState('en');
 
 
   useEffect( () => {
@@ -32,6 +40,10 @@ function App() {
       }
     }
   });
+
+  useEffect(() => {
+    document.body.className = `${theme}-theme`;
+  }, [theme]);
 
 
   async function vote() {
@@ -223,24 +235,78 @@ function App() {
     }
   }
 
+  const renderTabContent = () => {
+    switch(activeTab) {
+      case 'voting':
+        return (
+          <Connected 
+            account={account}
+            candidates={candidates}
+            remainingTime={remainingTime}
+            number={number}
+            handleNumberChange={handleNumberChange}
+            voteFunction={vote}
+            showButton={CanVote}
+            candidateName={candidateName}
+            handleCandidateNameChange={handleCandidateNameChange}
+            addCandidateFunction={addCandidate}
+            language={language}
+          />
+        );
+      case 'dashboard':
+        return (
+          <Dashboard 
+            candidates={candidates}
+            totalVoters={totalVoters}
+            votingStart={0}
+            votingEnd={remainingTime}
+            language={language}
+          />
+        );
+      case 'audit':
+        return <AuditTrail account={account} language={language} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="App">
-      { votingStatus ? (isConnected ? (<Connected 
-                      account = {account}
-                      candidates = {candidates}
-                      remainingTime = {remainingTime}
-                      number= {number}
-                      handleNumberChange = {handleNumberChange}
-                      voteFunction = {vote}
-                      showButton = {CanVote}
-                      candidateName = {candidateName}
-                      handleCandidateNameChange = {handleCandidateNameChange}
-                      addCandidateFunction = {addCandidate}/>) 
-                      
-                      : 
-                      
-                      (<Login connectWallet = {connectToMetamask}/>)) : (<Finished />)}
-      
+      <ThemeLanguageControls 
+        theme={theme} 
+        setTheme={setTheme} 
+        language={language} 
+        setLanguage={setLanguage} 
+      />
+      { votingStatus ? (isConnected ? (
+        <div>
+          <div className="nav-tabs">
+            <button 
+              className={`nav-tab ${activeTab === 'voting' ? 'active' : ''}`}
+              onClick={() => setActiveTab('voting')}
+            >
+              {getTranslation(language, 'votingPortal')}
+            </button>
+            <button 
+              className={`nav-tab ${activeTab === 'dashboard' ? 'active' : ''}`}
+              onClick={() => setActiveTab('dashboard')}
+            >
+              {getTranslation(language, 'dashboard')}
+            </button>
+            <button 
+              className={`nav-tab ${activeTab === 'audit' ? 'active' : ''}`}
+              onClick={() => setActiveTab('audit')}
+            >
+              {getTranslation(language, 'auditTrail')}
+            </button>
+          </div>
+          {renderTabContent()}
+        </div>
+      ) : (
+        <Login connectWallet={connectToMetamask} language={language} />
+      )) : (
+        <Finished language={language} />
+      )}
     </div>
   );
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { getTranslation } from '../utils/translations';
 
 const Finished = (props) => {
     return (
@@ -8,12 +9,9 @@ const Finished = (props) => {
                 <div className="gov-logo-container">
                     <div className="ashoka-chakra">☸️</div>
                 </div>
-                <h1 className="finished-header">✅ Election Concluded</h1>
+                <h1 className="finished-header">{getTranslation(props.language, 'electionConcluded')}</h1>
                 <p className="login-subtitle">
-                    <strong>Government of India - Digital Voting Portal</strong><br/><br/>
-                    The voting period has officially ended. Thank you for participating in India's democratic process!<br/><br/>
-                    All votes have been securely recorded on the blockchain and results are now final.<br/><br/>
-                    🙏 धन्यवाद (Thank You)
+                    {getTranslation(props.language, 'finishedMessage')}
                 </p>
             </div>
         </div>
