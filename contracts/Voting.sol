@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 contract Voting {
+    enum Role { None, Admin, Auditor, Voter }
+    
     struct Candidate {
         string name;
         uint256 voteCount;
@@ -10,11 +12,17 @@ contract Voting {
     Candidate[] public candidates;
     address owner;
     mapping(address => bool) public voters;
-    mapping(address => string) public verifiedAadhaar; // Maps wallet to Aadhaar hash
-    mapping(string => bool) public usedAadhaar; // Prevents duplicate Aadhaar usage
-
+    mapping(address => string) public verifiedAadhaar;
+    mapping(string => bool) public usedAadhaar;
+    mapping(address => Role) public userRoles;
+    
     uint256 public votingStart;
     uint256 public votingEnd;
+    
+    event RoleAssigned(address indexed user, Role role);
+    event VoteCast(address indexed voter, uint256 candidateIndex, uint256 timestamp);
+    event ElectionStarted(uint256 startTime, uint256 endTime);
+    event ElectionEnded(uint256 endTime);
 
 constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
     for (uint256 i = 0; i < _candidateNames.length; i++) {
@@ -24,16 +32,35 @@ constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
         }));
     }
     owner = msg.sender;
+    userRoles[msg.sender] = Role.Admin;
     votingStart = block.timestamp;
     votingEnd = block.timestamp + (_durationInMinutes * 1 minutes);
+    
+    emit RoleAssigned(msg.sender, Role.Admin);
+    emit ElectionStarted(votingStart, votingEnd);
 }
 
-    modifier onlyOwner {
-        require(msg.sender == owner);
+    modifier onlyAdmin {
+        require(userRoles[msg.sender] == Role.Admin, "Admin access required");
+        _;
+    }
+    
+    modifier onlyAuditor {
+        require(userRoles[msg.sender] == Role.Auditor || userRoles[msg.sender] == Role.Admin, "Auditor access required");
+        _;
+    }
+    
+    modifier onlyVoter {
+        require(userRoles[msg.sender] == Role.Voter, "Voter registration required");
         _;
     }
 
-    function addCandidate(string memory _name) public {
+    function assignRole(address _user, Role _role) public onlyAdmin {
+        userRoles[_user] = _role;
+        emit RoleAssigned(_user, _role);
+    }
+    
+    function addCandidate(string memory _name) public onlyAdmin {
         candidates.push(Candidate({
                 name: _name,
                 voteCount: 0
@@ -49,11 +76,13 @@ constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
     }
 
     function vote(uint256 _candidateIndex) public {
-        require(!voters[msg.sender], "You have already voted.");
         require(_candidateIndex < candidates.length, "Invalid candidate index.");
+        require(!voters[msg.sender], "You have already voted.");
 
         candidates[_candidateIndex].voteCount++;
         voters[msg.sender] = true;
+        
+        emit VoteCast(msg.sender, _candidateIndex, block.timestamp);
     }
 
     function isAadhaarVerified(address _voter) public view returns (bool) {
@@ -76,15 +105,29 @@ constructor(string[] memory _candidateNames, uint256 _durationInMinutes) {
         return votingEnd - block.timestamp;
     }
 
-    function extendVotingTime(uint256 _additionalMinutes) public onlyOwner {
+    function extendVotingTime(uint256 _additionalMinutes) public onlyAdmin {
         votingEnd = votingEnd + (_additionalMinutes * 1 minutes);
     }
 
-    function resetVoting() public onlyOwner {
+    function endElection() public onlyAdmin {
+        votingEnd = block.timestamp;
+        emit ElectionEnded(block.timestamp);
+    }
+
+    function resetVoting() public onlyAdmin {
         for (uint256 i = 0; i < candidates.length; i++) {
             candidates[i].voteCount = 0;
         }
         votingStart = block.timestamp;
         votingEnd = block.timestamp + (90 * 1 minutes);
+        emit ElectionStarted(votingStart, votingEnd);
+    }
+    
+    function getUserRole(address _user) public view returns (Role) {
+        return userRoles[_user];
+    }
+    
+    function getVoteEvents() public view onlyAuditor returns (bool) {
+        return true; // Placeholder for event querying
     }
 }

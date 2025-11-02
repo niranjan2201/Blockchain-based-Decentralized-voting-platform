@@ -12,6 +12,9 @@ module.exports = {
    defaultNetwork: "volta",
    networks: {
       hardhat: {},
+      localhost: {
+         url: "http://127.0.0.1:8545"
+      },
       volta: {
          url: API_URL,
          accounts: [`0x${PRIVATE_KEY}`],

@@ -16,25 +16,39 @@
 }
 
 .auth-card {
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
   width: 100%;
-  max-width: 450px;
-  padding: 32px;
+  max-width: 480px;
+  padding: 40px;
   text-align: center;
-  transition: all 0.3s ease;
-  border-top: 4px solid #FF9933;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
 }
 
 .light-theme .auth-card {
-  background: white;
+  background: rgba(255,255,255,0.95);
   color: #1a1a1a;
 }
 
 .dark-theme .auth-card {
-  background: #2c3e50;
+  background: rgba(44,62,80,0.95);
   color: #ecf0f1;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .auth-header {
@@ -148,31 +162,54 @@
 .auth-method-btn {
   display: flex;
   align-items: center;
-  padding: 16px;
-  border-radius: 8px;
+  padding: 20px;
+  border-radius: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-method-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.auth-method-btn:hover::before {
+  left: 100%;
 }
 
 .light-theme .auth-method-btn {
-  border: 1px solid #dadce0;
-  background: white;
+  border: 2px solid #e9ecef;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(5px);
 }
 
 .dark-theme .auth-method-btn {
-  border: 1px solid #34495e;
-  background: #34495e;
+  border: 2px solid #34495e;
+  background: rgba(52,73,94,0.8);
+  backdrop-filter: blur(5px);
 }
 
 .light-theme .auth-method-btn:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(26,115,232,0.2);
   border-color: #1a73e8;
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.95);
 }
 
 .dark-theme .auth-method-btn:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 25px rgba(52,152,219,0.3);
   border-color: #3498db;
+  transform: translateY(-2px);
+  background: rgba(52,73,94,0.95);
 }
 
 .method-icon {
@@ -295,23 +332,24 @@
 
 .auth-input {
   width: 100%;
-  padding: 16px 12px 8px 12px;
-  border-radius: 4px;
+  padding: 18px 16px 10px 16px;
+  border-radius: 12px;
   font-size: 16px;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   box-sizing: border-box;
+  backdrop-filter: blur(5px);
 }
 
 .light-theme .auth-input {
-  border: 1px solid #dadce0;
-  background: white;
+  border: 2px solid #e9ecef;
+  background: rgba(255,255,255,0.9);
   color: #1a1a1a;
 }
 
 .dark-theme .auth-input {
-  border: 1px solid #34495e;
-  background: #34495e;
+  border: 2px solid #34495e;
+  background: rgba(52,73,94,0.9);
   color: #ecf0f1;
 }
 
@@ -347,19 +385,39 @@
 
 .continue-btn {
   width: 100%;
-  padding: 12px;
-  background: #1a73e8;
+  padding: 16px;
+  background: linear-gradient(135deg, #1a73e8, #4285f4);
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26,115,232,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.continue-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.continue-btn:hover::before {
+  left: 100%;
 }
 
 .continue-btn:hover:not(:disabled) {
-  background: #1557b0;
+  background: linear-gradient(135deg, #1557b0, #3367d6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26,115,232,0.4);
 }
 
 .continue-btn:disabled {

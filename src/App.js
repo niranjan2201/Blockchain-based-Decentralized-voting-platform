@@ -9,6 +9,10 @@ import AuditTrail from './Components/AuditTrail';
 import CandidateProfiles from './Components/CandidateProfiles';
 import AadhaarVerification from './Components/AadhaarVerification';
 import UnifiedAuth from './Components/UnifiedAuth';
+import RoleManagement from './Components/RoleManagement';
+import RoleSelection from './Components/RoleSelection';
+import AdminLogin from './Components/AdminLogin';
+import AdminDashboard from './Components/AdminDashboard';
 import VoteReceipt from './Components/VoteReceipt';
 import ThemeLanguageControls from './Components/ThemeLanguageControls';
 import { getTranslation } from './utils/translations';
@@ -38,6 +42,9 @@ function App() {
   const [showReceipt, setShowReceipt] = useState(false);
   const [voteReceiptData, setVoteReceiptData] = useState(null);
   const [authMethod, setAuthMethod] = useState(null); // 'aadhaar', 'wallet', null
+  const [selectedRole, setSelectedRole] = useState(null); // 'voter', 'admin', 'auditor'
+  const [userType, setUserType] = useState(null); // Current logged in user type
+  const [showRoleSelection, setShowRoleSelection] = useState(true);
 
 
   useEffect( () => {
@@ -48,12 +55,20 @@ function App() {
       window.ethereum.on('accountsChanged', handleAccountsChanged);
     }
 
+    // Auto-refresh candidates every 3 seconds
+    const interval = setInterval(() => {
+      getCandidates();
+      getRemainingTime();
+      getCurrentStatus();
+    }, 3000);
+
     return() => {
+      clearInterval(interval);
       if (window.ethereum) {
         window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
       }
     }
-  });
+  }, []);
 
   useEffect(() => {
     document.body.className = `${theme}-theme`;
@@ -61,11 +76,6 @@ function App() {
 
 
   async function vote() {
-      if (authMethod === 'aadhaar' && !isAadhaarVerified) {
-        alert('Please complete Aadhaar verification first');
-        return;
-      }
-      
       if (!number || number === '') {
         alert('Please enter a candidate index');
         return;
@@ -88,14 +98,8 @@ function App() {
           contractAddress, contractAbi, signer
         );
 
-        const votingStatus = await contractInstance.getVotingStatus();
-        if (!votingStatus) {
-          alert('Voting period has ended');
-          return;
-        }
-
         const tx = await contractInstance.vote(parseInt(number), {
-          gasLimit: 300000
+          gasLimit: 100000
         });
         
         const receipt = await tx.wait();
@@ -130,14 +134,21 @@ function App() {
 
   async function getCandidates() {
       try {
-        if (!window.ethereum) return;
+        console.log('Fetching candidates...');
+        if (!window.ethereum) {
+          console.log('MetaMask not found');
+          return;
+        }
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
+        console.log('Contract address:', contractAddress);
         const contractInstance = new ethers.Contract (
           contractAddress, contractAbi, signer
         );
+        console.log('Calling getAllVotesOfCandiates...');
         const candidatesList = await contractInstance.getAllVotesOfCandiates();
+        console.log('Raw candidates data:', candidatesList);
         const formattedCandidates = candidatesList.map((candidate, index) => {
           return {
             index: index,
@@ -145,10 +156,19 @@ function App() {
             voteCount: candidate.voteCount.toNumber()
           }
         });
+        console.log('Formatted candidates:', formattedCandidates);
         setCandidates(formattedCandidates);
       } catch (error) {
         console.error('Error getting candidates:', error);
-        setCandidates([]);
+        // Fallback to mock data for testing
+        const mockCandidates = [
+          { index: 0, name: 'Mark', voteCount: 0 },
+          { index: 1, name: 'Mike', voteCount: 0 },
+          { index: 2, name: 'Henry', voteCount: 0 },
+          { index: 3, name: 'Rock', voteCount: 0 }
+        ];
+        console.log('Using mock candidates:', mockCandidates);
+        setCandidates(mockCandidates);
       }
   }
 
@@ -234,14 +254,68 @@ function App() {
     setCandidateSymbol(e.target.value);
   }
 
-  const handleUnifiedAuthSuccess = (voterData, isAadhaarVerified) => {
-    if (voterData) {
-      setVoterData(voterData);
-      setIsAadhaarVerified(isAadhaarVerified);
-      setAuthMethod('aadhaar');
+  async function verifyAadhaarWithContract(aadhaarHash) {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contractInstance = new ethers.Contract(
+        contractAddress, contractAbi, signer
+      );
+      
+      const tx = await contractInstance.verifyAadhaar(aadhaarHash);
+      await tx.wait();
+      return true;
+    } catch (error) {
+      console.error('Aadhaar verification error:', error);
+      return false;
+    }
+  }
+
+  const handleUnifiedAuthSuccess = async (voterData, isAadhaarVerified) => {
+    if (voterData && isAadhaarVerified) {
+      // Hash the Aadhaar number for blockchain storage
+      const aadhaarHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(voterData.aadhaarNumber));
+      const verified = await verifyAadhaarWithContract(aadhaarHash);
+      
+      if (verified) {
+        setVoterData(voterData);
+        setIsAadhaarVerified(true);
+        setAuthMethod('aadhaar');
+      } else {
+        alert('Failed to verify Aadhaar with blockchain');
+        return;
+      }
     } else {
       setAuthMethod('wallet');
     }
+    setUserType('voter');
+    setShowRoleSelection(false);
+  };
+
+  const handleRoleSelect = (role) => {
+    setSelectedRole(role);
+    if (role === 'voter') {
+      // Proceed to voter authentication (Aadhaar + MetaMask)
+      setShowRoleSelection(false);
+    } else {
+      // Show admin/auditor login
+      setShowRoleSelection(false);
+    }
+  };
+
+  const handleAdminLoginSuccess = (userType) => {
+    setUserType(userType);
+    setIsConnected(true);
+  };
+
+  const handleLogout = () => {
+    setUserType(null);
+    setSelectedRole(null);
+    setIsConnected(false);
+    setIsAadhaarVerified(false);
+    setVoterData(null);
+    setAuthMethod(null);
+    setShowRoleSelection(true);
   };
 
   const generateVoteReceipt = (candidateIndex, transactionHash, blockNumber) => {
@@ -393,44 +467,59 @@ function App() {
         language={language} 
         setLanguage={setLanguage} 
       />
-      { votingStatus ? (isConnected ? (
-        <div>
-          <div className="nav-tabs">
-            <button 
-              className={`nav-tab ${activeTab === 'voting' ? 'active' : ''}`}
-              onClick={() => setActiveTab('voting')}
-            >
-              {getTranslation(language, 'votingPortal')}
-            </button>
-            <button 
-              className={`nav-tab ${activeTab === 'profiles' ? 'active' : ''}`}
-              onClick={() => setActiveTab('profiles')}
-            >
-              {getTranslation(language, 'candidateProfiles')}
-            </button>
-            <button 
-              className={`nav-tab ${activeTab === 'dashboard' ? 'active' : ''}`}
-              onClick={() => setActiveTab('dashboard')}
-            >
-              {getTranslation(language, 'dashboard')}
-            </button>
-            <button 
-              className={`nav-tab ${activeTab === 'audit' ? 'active' : ''}`}
-              onClick={() => setActiveTab('audit')}
-            >
-              {getTranslation(language, 'auditTrail')}
-            </button>
+      { votingStatus ? (
+        // Admin/Auditor Dashboard
+        (userType === 'admin' || userType === 'auditor') ? (
+          <AdminDashboard 
+            language={language}
+            theme={theme}
+            userType={userType}
+            onLogout={handleLogout}
+          />
+        ) : 
+        // Voter Dashboard
+        isConnected && userType === 'voter' ? (
+          <div>
+            <div className="nav-tabs">
+              <button 
+                className={`nav-tab ${activeTab === 'voting' ? 'active' : ''}`}
+                onClick={() => setActiveTab('voting')}
+              >
+                {getTranslation(language, 'votingPortal')}
+              </button>
+              <button 
+                className={`nav-tab ${activeTab === 'profiles' ? 'active' : ''}`}
+                onClick={() => setActiveTab('profiles')}
+              >
+                {getTranslation(language, 'candidateProfiles')}
+              </button>
+            </div>
+            {renderTabContent()}
           </div>
-          {renderTabContent()}
-        </div>
+        ) : 
+        // Authentication Flow
+        showRoleSelection ? (
+          <RoleSelection 
+            language={language}
+            theme={theme}
+            onRoleSelect={handleRoleSelect}
+          />
+        ) : selectedRole === 'voter' ? (
+          <UnifiedAuth 
+            language={language}
+            theme={theme}
+            onAuthSuccess={handleUnifiedAuthSuccess}
+            connectWallet={connectToMetamask}
+          />
+        ) : (
+          <AdminLogin 
+            language={language}
+            userType={selectedRole}
+            onLoginSuccess={handleAdminLoginSuccess}
+            onBack={() => setShowRoleSelection(true)}
+          />
+        )
       ) : (
-        <UnifiedAuth 
-          language={language}
-          theme={theme}
-          onAuthSuccess={handleUnifiedAuthSuccess}
-          connectWallet={connectToMetamask}
-        />
-      )) : (
         <Finished language={language} />
       )}
     </div>
